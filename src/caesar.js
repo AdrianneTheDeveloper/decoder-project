@@ -82,6 +82,6 @@ function caesar(input, shift, encode = true) {
   return Msg;
 }
 
-console.log(caesar("ebiil xaofxkkb!", -3, false));
+
 
 module.exports = caesar;
