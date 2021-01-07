@@ -48,4 +48,9 @@ describe('substitution', () => {
         expect(expected).to.equal(actual);
         expect(expected2).to.equal(actual2);
     })
+    it('should remove special characters before encoding when encode === true', () => {
+        const expected = 'xbnjxlls'
+        const actual = substitution("Adrianne!@#", subAlpha)
+        expect(expected).to.equal(actual);
+    })
 })

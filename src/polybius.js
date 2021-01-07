@@ -39,6 +39,7 @@ function polybius(input, encode = true) {
         { z: 55 }
     ]
     input = input.toLowerCase(); // Set all strings to lowercase to ignore capitols.
+    ; // Set all strings to lowercase to ignore capitols.
     let msg = '' // Declare variable for encoded/decoded string
     if (encode === true) { // If encode is true
         for (let inputInd = 0; inputInd < input.length; inputInd++) { // Loop through input
@@ -75,7 +76,7 @@ function polybius(input, encode = true) {
                 toDecode.push(word.match(/.{1,2}/g))
             })
         });
-
+        
         for (let decodeInd = 0; decodeInd < toDecode.length; decodeInd++) { // Loop toDecode array
             for (let wordInd = 0; wordInd < toDecode[decodeInd].length; wordInd++) { // Loop arrays within toDecode
                 for (let gridInd = 0; gridInd < grid.length; gridInd++) { // Loop grid
