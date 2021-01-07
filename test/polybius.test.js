@@ -25,5 +25,24 @@ describe('polybius', () => {
         const actual = polybius('Hello Adrianne');
         expect(actual).to.be.a('string');
     })
-    
+    it('should decode input when encode is false', () => {
+        const expected = 'hello';
+        const actual = polybius('3251131343', false)
+        expect(expected).to.equal(actual)
+    })
+    it(`it should replace every 'ij' with '(i/j) when encode is false and there is 'ij' in the string`, () => {
+        const expected = 'adr(i/j)anne';
+        const actual = polybius('1141244211333351', false)
+        expect(expected).to.equal(actual)
+    })
+    it('should maintain spaces when inputted string has spaces', () => {
+        const expected = '3251131343 1141244211333351';
+        const actual = polybius('Hello Adrianne');
+        const expected2 = 'hello adr(i/j)anne'
+        const actual2 = polybius('3251131343 1141244211333351', false)
+        expect(expected).to.equal(actual)
+        expect(expected2).to.equal(actual2)
+
+
+    })
 })
