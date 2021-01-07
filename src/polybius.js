@@ -3,7 +3,7 @@ function polybius(input, encode = true) {
         
         if (typeof input !== 'string') throw 'Input is not a string.' // If input is not a string throw an error
 
-        const lengthCheck = input.replace(/ /g,'') // Remove whitespaces
+        const lengthCheck = input.replace(/ /g, '') // Remove whitespaces
         if (encode === false && lengthCheck.length % 2 !== 0) throw 'Input must be even.' // If encode is false and length of string without spaces isn't even throw and error
     }
     catch (error) {
@@ -19,7 +19,8 @@ function polybius(input, encode = true) {
         { f: 12 },
         { g: 22 },
         { h: 32 },
-        { '(i/j)': 42 },
+        { i: 42 },
+        { j: 42 },
         { k: 52 },
         { l: 13 },
         { m: 23 },
@@ -57,20 +58,46 @@ function polybius(input, encode = true) {
                 let inputNumber = input[inputInd] // Declare variable for array index
                 let key = Object.keys(grid[gridInd]);
                 let property = grid[gridInd][key];
-                if (inputNumber == property) msg += key // If array index == property add corresponding key to msg variable
                 
+                if (inputNumber == property) msg += key // If array index == property add corresponding key to msg variable
+                msg = msg.replace('ij', '(i/j)') // Replace every 'ij' with '(i/j)' to show distinction
             }
-        } 
+        }
 
-    } else if (encode === false && /\s/.test(input)) {
-        input = input.split(' ').map((word) => {
+    } else if (encode === false && /\s/.test(input)) { // If encode is false and there are spaces in the string
+        input = input.split(' ').map((word) => { // Split the string up by one space into an array and map out a new array with each 'word' being in it's own array.
             return [word]
         })
 
-        
-    }
-    return input
-}
+       let toDecode = [] // Declare an array to push separated words into
+        input.forEach(element => { // For each element in input array, loop each element and push the index in each element into toDecode array with indexes separated by 2.
+            element.forEach(word => {
+                toDecode.push(word.match(/.{1,2}/g))
+            })
+        });
 
-console.log(polybius('3251131343 1141244211333351', false))
+        for (let decodeInd = 0; decodeInd < toDecode.length; decodeInd++) { // Loop toDecode array
+            for (let wordInd = 0; wordInd < toDecode[decodeInd].length; wordInd++) { // Loop arrays within toDecode
+                for (let gridInd = 0; gridInd < grid.length; gridInd++) { // Loop grid
+                    let key = Object.keys(grid[gridInd]); // Declare key variable
+                    let property = grid[gridInd][key]; // Declare property variable
+                    let word = toDecode[decodeInd]; // Declare variable for arrays inside toDecode
+                    let letter = word[wordInd] // Declare variable for values inside word array
+                    if (property == letter) word.splice(wordInd, 1, key) // If property matches letter replaces index value with key
+                
+                }
+            }
+        } 
+        
+        for (let decodeInd = 0; decodeInd < toDecode.length; decodeInd++) { // Loop toDecode
+            toDecode[decodeInd] = toDecode[decodeInd].join('') // Join each array within toDecode
+
+        }
+        msg = toDecode.join(' ') // Join strings inside toDecode with a space and assign joined string to msg
+        if (msg.includes('j')) msg = msg.replace('j', '(i/j)') // If string includes i or j replace it with (i/j)'
+        if (msg.includes('i')) msg = msg.replace('i', '(i/j)')
+    }
+    return msg // Return msg in any scenario
+}
+console.log(polybius('1141244211333351', false))
 module.exports = polybius;
