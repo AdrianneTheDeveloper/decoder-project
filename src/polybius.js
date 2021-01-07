@@ -99,5 +99,5 @@ function polybius(input, encode = true) {
     }
     return msg // Return msg in any scenario
 }
-console.log(polybius('1141244211333351', false))
+
 module.exports = polybius;
