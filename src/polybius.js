@@ -94,15 +94,14 @@ function polybius(input, encode = true) {
 
         }
         for (let decodeInd = 0; decodeInd < toDecode.length; decodeInd++) {
-            if (toDecode[decodeInd].includes('i') || toDecode[decodeInd].includes('j')) {
+            if (toDecode[decodeInd].includes('i') || toDecode[decodeInd].includes('j')) { // If any string in decode includes an i or a j, replace it with (i/j)
                 toDecode[decodeInd] = toDecode[decodeInd].replace('j', '(i/j)');
                 toDecode[decodeInd] = toDecode[decodeInd].replace('i', '(i/j)')
             }
         }
        
         msg = toDecode.join(' ') // Join strings inside toDecode with a space and assign joined string to msg
-       // if (msg.includes('j')) msg = msg.replace('j', '(i/j)') // If string includes i or j replace it with (i/j)'
-        //if (msg.includes('i')) msg = msg.replace('i', '(i/j)')
+       
     }
     return msg // Return msg in any scenario
 }
