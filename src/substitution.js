@@ -108,5 +108,5 @@ function substitution(input, alphabet, encode = true) {
     return Msg
     
 }
-console.log(substitution('oj xbnjxlls', subAlpha, false)) 
+
 module.exports = substitution;
